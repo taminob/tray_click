@@ -13,8 +13,9 @@ pub trait Entry {
         for arg in args {
             command.arg(arg);
         }
-        command.output()
-               .expect(helper::command_exec_error_msg(program).as_str())
+        command
+            .output()
+            .expect(helper::command_exec_error_msg(program).as_str())
     }
 }
 
