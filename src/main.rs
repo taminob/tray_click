@@ -10,7 +10,7 @@ where
     EntryType: entry::Entry,
 {
     tray.add_menu_item(EntryType::name().as_str(), EntryType::action)
-        .expect(format!("failed to add tray item: {}", EntryType::name().as_str()).as_str());
+        .unwrap_or_else(|_| panic!("failed to add tray item: {}", EntryType::name().as_str()));
 }
 
 fn main() {

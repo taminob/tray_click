@@ -15,7 +15,7 @@ pub trait Entry {
         }
         command
             .output()
-            .expect(helper::command_exec_error_msg(program).as_str())
+            .unwrap_or_else(|_| panic!("{}", helper::command_exec_error_msg(program)))
     }
 }
 
