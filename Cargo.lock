@@ -90,14 +90,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
-name = "clickerrr"
-version = "0.1.0"
-dependencies = [
- "gtk",
- "tray-item",
-]
-
-[[package]]
 name = "cocoa"
 version = "0.24.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -807,6 +799,14 @@ dependencies = [
  "objc_id",
  "padlock",
  "winapi",
+]
+
+[[package]]
+name = "tray_click"
+version = "0.1.0"
+dependencies = [
+ "gtk",
+ "tray-item",
 ]
 
 [[package]]

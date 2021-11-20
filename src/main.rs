@@ -1,9 +1,8 @@
-//use gtk::{init, main_quit};
 use tray_item::TrayItem;
 mod entry;
 mod entries;
 
-const APPLICATION_NAME: &str = "clickerrr";
+const APPLICATION_NAME: &str = "tray_click";
 const APPLICATION_ICON: &str = "arrow-down-double";
 
 fn add_item_to_tray<EntryType: 'static>(tray: &mut TrayItem) where EntryType: entry::Entry {
