@@ -8,6 +8,6 @@ impl Entry for EchoEntry {
     }
 
     fn action() {
-        Self::execute_command("echo", &["hello world"])
+        Self::execute_command("echo", &["test"])
     }
 }
