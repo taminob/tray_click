@@ -1,13 +1,14 @@
 use crate::entry::Entry;
 
+#[derive(Default)]
 pub struct EchoEntry {}
 
 impl Entry for EchoEntry {
-    fn name() -> String {
+    fn name(&self) -> String {
         "echo test".to_string()
     }
 
-    fn action() {
+    fn action(&self) {
         Self::execute_command("echo", &["test"])
     }
 }

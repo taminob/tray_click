@@ -1,8 +1,8 @@
 use std::process::{Command, Output};
 
 pub trait Entry {
-    fn name() -> String;
-    fn action();
+    fn name(&self) -> String;
+    fn action(&self);
 
     fn execute_command(program: &str, args: &[&str]) {
         helper::print_command_output(Self::output_command(program, args));

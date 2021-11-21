@@ -1,3 +1,5 @@
+pub mod custom;
+pub use custom::*;
 pub mod echo;
 pub use echo::*;
 pub mod notification_test;
