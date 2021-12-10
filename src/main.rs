@@ -1,10 +1,10 @@
-use clap::{App, Arg, Values};
+use clap::{App, Arg};
 mod entries;
 mod entry;
 mod tray;
 
 const DEFAULT_APPLICATION_NAME: &str = "tray_click";
-const DEFAULT_APPLICATION_ICON: &str = "arrow-down-double";
+const DEFAULT_APPLICATION_ICON: &str = "tray_click.png";
 
 fn main() {
     let args = App::new(env!("CARGO_PKG_NAME"))
@@ -26,7 +26,7 @@ fn main() {
                 .short("i")
                 .long("icon")
                 .takes_value(true)
-                .value_name("STRING")
+                .value_name("FILE")
                 .default_value(DEFAULT_APPLICATION_ICON),
         )
         .arg(
@@ -49,7 +49,7 @@ fn main() {
         app_name,
         args.value_of("icon").unwrap(),
         args.values_of("command")
-            .unwrap_or_else(|| Values::default())
+            .unwrap_or_default()
             .collect(),
     );
 

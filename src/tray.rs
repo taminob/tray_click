@@ -1,7 +1,6 @@
 use crate::entries;
 use crate::entry::Entry;
 use std::marker::{Send, Sync};
-use toml;
 use tray_item::TrayItem;
 
 pub fn create_tray(app_name: &str, icon: &str, custom_items: Vec<&str>) {
