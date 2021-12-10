@@ -1,10 +1,11 @@
 use clap::{App, Arg};
+use std::path::{Path, PathBuf};
 mod entries;
 mod entry;
 mod tray;
 
 const DEFAULT_APPLICATION_NAME: &str = "tray_click";
-const DEFAULT_APPLICATION_ICON: &str = "tray_click.png";
+const DEFAULT_APPLICATION_ICON: &str = "resources/tray_click.png";
 const DEFAULT_CONFIG_PATH: &str = "~/.config/tray_click/config.toml";
 
 fn main() {
@@ -56,9 +57,17 @@ fn main() {
     let app_name = args.value_of("name").unwrap();
     glib::set_application_name(app_name);
 
+    let tray_icon = Path::new(args.value_of("icon").unwrap()).canonicalize();
+
     tray::create_tray(
         app_name,
-        args.value_of("icon").unwrap(),
+        tray_icon
+            .unwrap_or_else(|x| {
+                println!("unable to load icon: {}", x);
+                PathBuf::from(DEFAULT_APPLICATION_ICON)
+            })
+            .to_str()
+            .expect("icon path is not utf-8"),
         args.values_of("command").unwrap_or_default().collect(),
     );
 
