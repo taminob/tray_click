@@ -26,7 +26,7 @@ pub fn create_tray(app_name: &str, icon: &str, custom_items: Vec<&str>) {
         display = "echo other"
         enabled = true
         command = "echo"
-        args = "this is an arg""#,
+        args = "other""#,
     );
     add_item_to_tray::<entries::NotificationTestEntry>(&mut tray);
     add_item_to_tray::<entries::NotificationEnableEntry>(&mut tray);

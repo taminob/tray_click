@@ -5,6 +5,7 @@ mod tray;
 
 const DEFAULT_APPLICATION_NAME: &str = "tray_click";
 const DEFAULT_APPLICATION_ICON: &str = "tray_click.png";
+const DEFAULT_CONFIG_PATH: &str = "~/.config/tray_click/config.toml";
 
 fn main() {
     let args = App::new(env!("CARGO_PKG_NAME"))
@@ -30,6 +31,16 @@ fn main() {
                 .default_value(DEFAULT_APPLICATION_ICON),
         )
         .arg(
+            Arg::with_name("file")
+                .help("Specify config file path")
+                .short("f")
+                .long("file")
+                .takes_value(true)
+                .multiple(true)
+                .value_name("FILE")
+                .default_value(DEFAULT_CONFIG_PATH),
+        )
+        .arg(
             Arg::with_name("command")
                 .help("Add command to tray")
                 .short("c")
@@ -48,9 +59,7 @@ fn main() {
     tray::create_tray(
         app_name,
         args.value_of("icon").unwrap(),
-        args.values_of("command")
-            .unwrap_or_default()
-            .collect(),
+        args.values_of("command").unwrap_or_default().collect(),
     );
 
     gtk::main();
