@@ -9,6 +9,6 @@ impl Entry for EchoEntry {
     }
 
     fn action(&self) {
-        Self::execute_command("echo", &["test"])
+        self.execute_command("echo", &["test"])
     }
 }

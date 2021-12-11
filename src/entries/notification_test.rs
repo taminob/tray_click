@@ -9,6 +9,6 @@ impl Entry for NotificationTestEntry {
     }
 
     fn action(&self) {
-        Self::execute_command("notify-send", &["TEST", "test"])
+        self.execute_command("notify-send", &["TEST", "test"])
     }
 }

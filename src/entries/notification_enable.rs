@@ -9,6 +9,6 @@ impl Entry for NotificationEnableEntry {
     }
 
     fn action(&self) {
-        Self::execute_command("makoctl", &["set-mode", "default"])
+        self.execute_command("makoctl", &["set-mode", "default"])
     }
 }

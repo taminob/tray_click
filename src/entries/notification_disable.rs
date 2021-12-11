@@ -9,6 +9,6 @@ impl Entry for NotificationDisableEntry {
     }
 
     fn action(&self) {
-        Self::execute_command("makoctl", &["set-mode", "do-not-disturb"])
+        self.execute_command("makoctl", &["set-mode", "do-not-disturb"])
     }
 }

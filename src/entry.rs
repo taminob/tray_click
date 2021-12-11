@@ -4,11 +4,11 @@ pub trait Entry {
     fn name(&self) -> String;
     fn action(&self);
 
-    fn execute_command(program: &str, args: &[&str]) {
-        helper::print_command_output(Self::output_command(program, args));
+    fn execute_command(&self, program: &str, args: &[&str]) {
+        helper::print_command_output(self.output_command(program, args));
     }
 
-    fn output_command(program: &str, args: &[&str]) -> Output {
+    fn output_command(&self, program: &str, args: &[&str]) -> Output {
         let mut command = Command::new(program);
         for arg in args {
             command.arg(arg);
