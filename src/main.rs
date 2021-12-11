@@ -51,6 +51,15 @@ fn main() {
                 .multiple(true)
                 .value_names(&["COMMAND", "ARGS", "NAME"]),
         )
+        .arg(
+            Arg::with_name("enabled")
+                .help("Enable predefined command")
+                .short("e")
+                .long("enable")
+                .takes_value(true)
+                .multiple(true)
+                .possible_values(&["echo", "notification_test", "notification_enable", "notification_disable", "exit"]),
+        )
         .get_matches();
 
     gtk::init().expect("failed to init gtk");
@@ -68,6 +77,7 @@ fn main() {
             })
             .to_str()
             .expect("icon path is not utf-8"),
+        args.values_of("enabled").unwrap_or_default().collect(),
         args.values_of("command").unwrap_or_default().collect(),
     );
 
