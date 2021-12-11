@@ -4,7 +4,7 @@ macro_rules! declare_entry {
     ($m:ident) => {
         pub mod $m;
         pub use $m::*;
-    }
+    };
 }
 
 declare_entry!(custom);
@@ -28,10 +28,14 @@ impl FromStr for DeclaredEntry {
         match s {
             "echo" => Ok(Self::Echo(EchoEntry::default())),
             "notification_test" => Ok(Self::NotificationTest(NotificationTestEntry::default())),
-            "notification_enable" => Ok(Self::NotificationEnable(NotificationEnableEntry::default())),
-            "notification_disable" => Ok(Self::NotificationDisable(NotificationDisableEntry::default())),
+            "notification_enable" => {
+                Ok(Self::NotificationEnable(NotificationEnableEntry::default()))
+            }
+            "notification_disable" => Ok(Self::NotificationDisable(
+                NotificationDisableEntry::default(),
+            )),
             "exit" => Ok(Self::Exit(ExitEntry::default())),
-            _ => Err(())
+            _ => Err(()),
         }
     }
 }

@@ -58,7 +58,13 @@ fn main() {
                 .long("enable")
                 .takes_value(true)
                 .multiple(true)
-                .possible_values(&["echo", "notification_test", "notification_enable", "notification_disable", "exit"]),
+                .possible_values(&[
+                    "echo",
+                    "notification_test",
+                    "notification_enable",
+                    "notification_disable",
+                    "exit",
+                ]),
         )
         .get_matches();
 

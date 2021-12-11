@@ -40,7 +40,10 @@ fn add_custom_item_to_tray(tray: &mut TrayItem, custom_item: &str) {
     add_entry_to_tray(tray, new_item)
 }
 
-fn add_entry_to_tray<EntryType: 'static + entry::Entry + Send + Sync>(tray: &mut TrayItem, entry: EntryType) {
+fn add_entry_to_tray<EntryType: 'static + entry::Entry + Send + Sync>(
+    tray: &mut TrayItem,
+    entry: EntryType,
+) {
     let entry_name = entry.name();
     tray.add_menu_item(entry_name.as_str(), move || entry.action())
         .unwrap_or_else(|_| panic!("failed to add tray item: {}", entry_name));
