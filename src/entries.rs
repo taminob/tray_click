@@ -1,12 +1,13 @@
-pub mod custom;
-pub use custom::*;
-pub mod echo;
-pub use echo::*;
-pub mod notification_test;
-pub use notification_test::*;
-pub mod notification_enable;
-pub use notification_enable::*;
-pub mod notification_disable;
-pub use notification_disable::*;
-pub mod exit;
-pub use exit::*;
+macro_rules! declare_entry {
+    ($m:ident) => {
+        pub mod $m;
+        pub use $m::*;
+    }
+}
+
+declare_entry!(custom);
+declare_entry!(echo);
+declare_entry!(notification_test);
+declare_entry!(notification_enable);
+declare_entry!(notification_disable);
+declare_entry!(exit);
