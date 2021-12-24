@@ -5,7 +5,7 @@ mod entry;
 mod tray;
 
 const DEFAULT_APPLICATION_NAME: &str = "tray_click";
-const DEFAULT_APPLICATION_ICON: &str = "resources/icon.png";
+const DEFAULT_APPLICATION_ICON: &str = "/usr/share/tray_click/icon.png";
 const DEFAULT_CONFIG_PATH: &str = "~/.config/tray_click/config.toml";
 
 fn main() {
