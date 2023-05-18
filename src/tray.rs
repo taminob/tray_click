@@ -4,7 +4,13 @@ use std::marker::{Send, Sync};
 use std::str::FromStr;
 use tray_item::TrayItem;
 
-pub fn create_tray(app_name: &str, icon: &str, enabled_items: Vec<&str>, custom_items: Vec<&str>) {
+pub fn create_tray(
+    app_name: &str,
+    icon: &str,
+    enabled_items: Vec<&str>,
+    custom_items: Vec<&str>,
+    config_files: Vec<&str>,
+) {
     let mut tray = TrayItem::new(app_name, icon).expect("failed to create tray");
     tray.add_label(app_name).expect("failed to add tray label");
     for item in enabled_items {
@@ -22,6 +28,17 @@ pub fn create_tray(app_name: &str, icon: &str, enabled_items: Vec<&str>, custom_
                 + "\"\nenabled = true"),
         );
     }
+    for file in config_files {
+        add_custom_item_to_tray(
+            &mut tray,
+            std::fs::read_to_string(file)
+                .unwrap_or_else(|x| {
+                    println!("failed to read: {}", x);
+                    String::new()
+                })
+                .as_str(),
+        );
+    }
 }
 
 fn add_item_to_tray(tray: &mut TrayItem, item: &str) {
@@ -35,9 +52,13 @@ fn add_item_to_tray(tray: &mut TrayItem, item: &str) {
 }
 
 fn add_custom_item_to_tray(tray: &mut TrayItem, custom_item: &str) {
-    let new_item: entries::CustomEntry =
-        toml::from_str(custom_item).expect("invalid config for custom entry");
-    add_entry_to_tray(tray, new_item)
+    if custom_item.is_empty() {
+        return;
+    }
+    match toml::from_str::<entries::CustomEntry>(custom_item) {
+        Ok(new_item) => add_entry_to_tray(tray, new_item),
+        Err(error) => println!("invalid config for custom entry: {}", error.to_string()),
+    }
 }
 
 fn add_entry_to_tray<EntryType: 'static + entry::Entry + Send + Sync>(

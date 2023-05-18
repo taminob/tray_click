@@ -85,6 +85,7 @@ fn main() {
             .expect("icon path is not utf-8"),
         args.values_of("enabled").unwrap_or_default().collect(),
         args.values_of("command").unwrap_or_default().collect(),
+        args.values_of("file").unwrap_or_default().collect(),
     );
 
     gtk::main();
