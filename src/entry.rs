@@ -4,18 +4,22 @@ pub trait Entry {
     fn name(&self) -> String;
     fn action(&self);
 
-    fn execute_command(&self, program: &str, args: &[&str]) {
+    fn execute_command<I: IntoIterator<Item = S>, S: AsRef<str>>(&self, program: &str, args: I) {
         helper::print_command_output(self.output_command(program, args));
     }
 
-    fn output_command(&self, program: &str, args: &[&str]) -> Output {
+    fn output_command<I: IntoIterator<Item = S>, S: AsRef<str>>(
+        &self,
+        program: &str,
+        args: I,
+    ) -> Output {
         let mut command = Command::new(program);
         for arg in args {
-            command.arg(arg);
+            command.arg(arg.as_ref());
         }
-        command
-            .output()
-            .unwrap_or_else(|_| panic!("{}", helper::command_exec_error_msg(program)))
+        command.output().unwrap_or_else(|_| {
+            panic!("{}", helper::command_exec_error_msg(program));
+        })
     }
 }
 
@@ -23,7 +27,7 @@ mod helper {
     use super::Output;
 
     pub fn command_exec_error_msg(program_name: &str) -> String {
-        format!("{} {}", "unable to execute", program_name)
+        format!("unable to execute: {}", program_name)
     }
 
     pub fn print_command_output(output: Output) {

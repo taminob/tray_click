@@ -17,15 +17,16 @@ pub fn create_tray(
         add_item_to_tray(&mut tray, item);
     }
     for item in custom_items.chunks(3) {
-        add_custom_item_to_tray(
-            &mut tray,
-            &("display = \"".to_owned()
+        let custom_item_toml = "display = \"".to_owned()
                 + item[2]
                 + "\"\ncommand = \""
                 + item[0]
                 + "\"\nargs = \""
                 + item[1]
-                + "\"\nenabled = true"),
+                + "\"\nenabled = true";
+        add_custom_item_to_tray(
+            &mut tray,
+            &custom_item_toml,
         );
     }
     for file in config_files {
@@ -33,7 +34,7 @@ pub fn create_tray(
             &mut tray,
             std::fs::read_to_string(file)
                 .unwrap_or_else(|x| {
-                    println!("failed to read: {}", x);
+                    println!("failed to read '{}': {}", file, x);
                     String::new()
                 })
                 .as_str(),
