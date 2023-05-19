@@ -3,6 +3,8 @@
 An application written in Rust which creates a tray icon which provides
 a dropdown menu with custom or pre-defined actions.
 
+![demo](https://github.com/taminob/tray_click/assets/28907748/7bd5c297-a98d-4395-8f00-21f2df56cba2)
+
 # Usage
 
 ```shell
