@@ -1,0 +1,4 @@
+display = "uhd resolution"
+command = "swaymsg"
+args = ["output", "*", "resolution", "3840x2160"]
+enabled = true

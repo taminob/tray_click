@@ -1,0 +1,4 @@
+display = "fhd resolution"
+command = "swaymsg"
+args = ["output", "*", "resolution", "1920x1080"]
+enabled = true

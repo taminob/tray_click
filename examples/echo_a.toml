@@ -1,0 +1,3 @@
+display = "echo a"
+command = "echo"
+args = ["'a'"]
