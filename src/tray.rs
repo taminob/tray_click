@@ -57,7 +57,7 @@ fn add_custom_item_to_tray(tray: &mut TrayItem, custom_item: &str) {
     }
     match toml::from_str::<entries::CustomEntry>(custom_item) {
         Ok(new_item) => add_entry_to_tray(tray, new_item),
-        Err(error) => println!("invalid config for custom entry: {}", error.to_string()),
+        Err(error) => println!("invalid config for custom entry: {}", error),
     }
 }
 

@@ -79,9 +79,18 @@ fn main() {
             })
             .to_str()
             .expect("icon path is not utf-8"),
-        &args.values_of("enabled").unwrap_or_default().collect::<Vec<&str>>(),
-        &args.values_of("command").unwrap_or_default().collect::<Vec<&str>>(),
-        &args.values_of("file").unwrap_or_default().collect::<Vec<&str>>(),
+        &args
+            .values_of("enabled")
+            .unwrap_or_default()
+            .collect::<Vec<&str>>(),
+        &args
+            .values_of("command")
+            .unwrap_or_default()
+            .collect::<Vec<&str>>(),
+        &args
+            .values_of("file")
+            .unwrap_or_default()
+            .collect::<Vec<&str>>(),
     );
 
     gtk::main();

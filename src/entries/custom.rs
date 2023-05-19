@@ -15,10 +15,7 @@ impl Entry for CustomEntry {
 
     fn action(&self) {
         if !self.command.is_empty() {
-            self.execute_command(
-                self.command.as_str(),
-                &self.args,
-            )
+            self.execute_command(self.command.as_str(), &self.args)
         }
     }
 }
