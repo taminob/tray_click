@@ -3,9 +3,9 @@ use serde_derive::Deserialize;
 
 #[derive(Default, Deserialize)]
 pub struct CustomEntry {
-    display: String,
-    command: String,
-    args: Vec<String>,
+    pub display: String,
+    pub command: String,
+    pub args: Vec<String>,
 }
 
 impl Entry for CustomEntry {

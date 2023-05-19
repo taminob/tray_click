@@ -43,13 +43,9 @@ fn main() {
         )
         .arg(
             Arg::with_name("command")
-                .help("Add command to tray")
-                .short("c")
-                .long("command")
-                .takes_value(true)
-                .number_of_values(3)
-                .multiple(true)
-                .value_names(&["COMMAND", "ARGS", "NAME"]),
+                .help("Add one additional command to tray (<command>... consists of <name> <executable> [<args...>])")
+                .index(1)
+                .min_values(2),
         )
         .arg(
             Arg::with_name("enabled")
@@ -83,9 +79,9 @@ fn main() {
             })
             .to_str()
             .expect("icon path is not utf-8"),
-        args.values_of("enabled").unwrap_or_default().collect(),
-        args.values_of("command").unwrap_or_default().collect(),
-        args.values_of("file").unwrap_or_default().collect(),
+        &args.values_of("enabled").unwrap_or_default().collect::<Vec<&str>>(),
+        &args.values_of("command").unwrap_or_default().collect::<Vec<&str>>(),
+        &args.values_of("file").unwrap_or_default().collect::<Vec<&str>>(),
     );
 
     gtk::main();

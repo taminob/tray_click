@@ -7,27 +7,26 @@ use tray_item::TrayItem;
 pub fn create_tray(
     app_name: &str,
     icon: &str,
-    enabled_items: Vec<&str>,
-    custom_items: Vec<&str>,
-    config_files: Vec<&str>,
+    enabled_items: &[&str],
+    custom_command: &[&str],
+    config_files: &[&str],
 ) {
     let mut tray = TrayItem::new(app_name, icon).expect("failed to create tray");
     tray.add_label(app_name).expect("failed to add tray label");
     for item in enabled_items {
         add_item_to_tray(&mut tray, item);
     }
-    for item in custom_items.chunks(3) {
-        let custom_item_toml = "display = \"".to_owned()
-                + item[2]
-                + "\"\ncommand = \""
-                + item[0]
-                + "\"\nargs = \""
-                + item[1]
-                + "\"\nenabled = true";
-        add_custom_item_to_tray(
-            &mut tray,
-            &custom_item_toml,
-        );
+    if !custom_command.is_empty() {
+        if custom_command.len() >= 2 {
+            let new_item = entries::CustomEntry {
+                display: custom_command[0].to_string(),
+                command: custom_command[1].to_string(),
+                args: custom_command[2..].iter().map(|s| s.to_string()).collect(),
+            };
+            add_entry_to_tray(&mut tray, new_item)
+        } else {
+            println!("invalid custom command: '{:?}'", custom_command)
+        }
     }
     for file in config_files {
         add_custom_item_to_tray(
