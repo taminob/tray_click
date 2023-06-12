@@ -1,0 +1,32 @@
+name: Check cargo version
+
+on:
+  release:
+    types: [published]
+  push:
+    tags:
+      - '*'
+
+jobs:
+  style:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Check Cargo.toml
+        run: |
+          name_and_version_lines="$(grep -A1 'name = "tray_click"' Cargo.toml)"
+          version_line="$(echo "${name_and_version_lines}" | grep 'version')"
+          version="$(echo "${version_line}" | cut -d '=' -f 2)"
+          version_without_quotes="$(echo "${version}" | cut -d '"' -f2)"
+          [ "${version_without_quotes}" = "${GITHUB_REF_NAME}" ] || exit 1
+
+      - name: Check Cargo.lock
+        run: |
+          name_and_version_lines="$(grep -A1 'name = "tray_click"' Cargo.lock)"
+          version_line="$(echo "${name_and_version_lines}" | grep 'version')"
+          version="$(echo "${version_line}" | cut -d '=' -f 2)"
+          version_without_quotes="$(echo "${version}" | cut -d '"' -f2)"
+          [ "${version_without_quotes}" = "${GITHUB_REF_NAME}" ] || exit 1
