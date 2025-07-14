@@ -25,7 +25,7 @@ pub fn create_tray(
             };
             add_entry_to_tray(&mut tray, new_item)
         } else {
-            println!("invalid custom command: '{:?}'", custom_command)
+            println!("invalid custom command: '{custom_command:?}'")
         }
     }
     for file in config_files {
@@ -33,7 +33,7 @@ pub fn create_tray(
             &mut tray,
             std::fs::read_to_string(file)
                 .unwrap_or_else(|x| {
-                    println!("failed to read '{}': {}", file, x);
+                    println!("failed to read '{file}': {x}");
                     String::new()
                 })
                 .as_str(),
@@ -57,7 +57,7 @@ fn add_custom_item_to_tray(tray: &mut TrayItem, custom_item: &str) {
     }
     match toml::from_str::<entries::CustomEntry>(custom_item) {
         Ok(new_item) => add_entry_to_tray(tray, new_item),
-        Err(error) => println!("invalid config for custom entry: {}", error),
+        Err(error) => println!("invalid config for custom entry: {error}"),
     }
 }
 
