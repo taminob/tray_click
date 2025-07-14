@@ -74,7 +74,7 @@ fn main() {
         app_name,
         tray_icon
             .unwrap_or_else(|x| {
-                println!("unable to load icon: {}", x);
+                println!("unable to load icon: {x}");
                 PathBuf::from(DEFAULT_APPLICATION_ICON)
             })
             .to_str()
