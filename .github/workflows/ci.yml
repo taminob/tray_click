@@ -23,7 +23,7 @@ jobs:
           override: true
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y librust-pango-dev librust-atk-dev librust-gdk-sys-dev libappindicator3-dev
+        run: sudo apt-get update && sudo apt-get install -y libappindicator3-dev
 
       - name: cargo fmt
         uses: actions-rs/cargo@v1
